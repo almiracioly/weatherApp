@@ -1,10 +1,10 @@
-import React from 'react';
 import styled from 'styled-components/native';
 
 export const Row = styled.View`
   flex-direction: row;
   ${({fullWidth}) => (fullWidth ? `width: 100%` : null)};
   ${({jContent}) => (jContent ? `justify-content: ${jContent}` : null)}
+  ${({aItems}) => (aItems ? `align-items: ${aItems}` : null)}
 `;
 
 export const WeekdayText = styled.Text`

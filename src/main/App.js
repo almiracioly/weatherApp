@@ -5,6 +5,8 @@ import {Wrapper, Main} from './styles';
 import WeatherResume from '../components/WeatherResume';
 import HourlyForecast from '../components/HourlyForecast';
 import Spacer from '../components/shared/Spacer';
+import DailyForecasts from '../components/DailyForecasts';
+import {ScrollView} from 'react-native';
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
         <Spacer value={10} />
         <Main>
           <HourlyForecast />
+          <DailyForecasts />
         </Main>
       </Wrapper>
     </ThemeProvider>

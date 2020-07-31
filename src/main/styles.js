@@ -6,6 +6,6 @@ export const Wrapper = styled.View`
   padding: 0 ${({theme: {metrics}}) => metrics.mediumSize}px;
 `;
 
-export const Main = styled.View`
+export const Main = styled.ScrollView`
   width: 100%;
 `;
