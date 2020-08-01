@@ -8,14 +8,15 @@ import {
   HourlyForecastContainer,
 } from './styles';
 import {FlatList} from 'react-native';
-import {HOURLY_FORECASTS} from './mockData';
+import moment from 'moment';
+import {dataTransform} from './helpers';
 
-function HourlyForecast({hour, icon, temperature}) {
+function HourlyForecast({forecasts}) {
   return (
     <>
       <Row fullWidth jContent="space-between">
         <Row>
-          <WeekdayText>Quinta-feira</WeekdayText>
+          <WeekdayText>{moment().format('dddd')}</WeekdayText>
           <TodayText>HOJE</TodayText>
         </Row>
         <Row>
@@ -26,7 +27,7 @@ function HourlyForecast({hour, icon, temperature}) {
       <HourlyForecastContainer>
         <FlatList
           horizontal
-          data={HOURLY_FORECASTS}
+          data={dataTransform(forecasts)}
           renderItem={({item}) => <HourPreview {...item} />}
           keyExtractor={(item) => String(item.id)}
         />
