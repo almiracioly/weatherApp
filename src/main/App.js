@@ -8,6 +8,7 @@ import Spacer from '../components/shared/Spacer';
 import DailyForecasts from '../components/DailyForecasts';
 import useWeather from './hooks/useWeather';
 import {Text} from 'react-native';
+import CurrentDayResume from '../components/CurrentDayResume';
 
 function App() {
   const weather = useWeather();
@@ -24,10 +25,11 @@ function App() {
             currentWeather={weather.current.weather[0].description}
             temperatureValue={Math.floor(weather.current.temp)}
           />
+          <CurrentDayResume />
           <Spacer value={10} />
           <Main>
             <HourlyForecast forecasts={weather.hourly} />
-            <DailyForecasts />
+            <DailyForecasts forecasts={weather.daily} />
           </Main>
         </Wrapper>
       ) : (

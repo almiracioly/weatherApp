@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export function dataTransform(forecasts) {
+export function hourlyForecastsFormatter(forecasts) {
   return forecasts
     .map((forecast, i) => {
       return {
