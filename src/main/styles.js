@@ -9,3 +9,7 @@ export const Wrapper = styled.View`
 export const Main = styled.ScrollView`
   width: 100%;
 `;
+
+export const HourlyForecastsContainer = styled.View`
+  max-height: ${({theme: {metrics}}) => metrics.getHeightFromDP('22%')}px;
+`;
