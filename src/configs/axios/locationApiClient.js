@@ -8,7 +8,7 @@ const locationApiClient = axios.create({
   },
 });
 
-weatherApiClient.interceptors.request.use((config) => {
+locationApiClient.interceptors.request.use((config) => {
   config.params = {
     ...config.params,
     key: LOCATION_API_KEY,

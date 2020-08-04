@@ -1,4 +1,5 @@
 import React from 'react';
+import '../configs/stringExtension';
 import ThemeProvider from './ThemeProvider';
 import BackgroundImage from '../components/BackgroundImage';
 import {Wrapper, Main, HourlyForecastsContainer} from './styles';
@@ -10,9 +11,11 @@ import useWeather from './hooks/useWeather';
 import {Text} from 'react-native';
 import CurrentDayResume from '../components/CurrentDayResume';
 import AdditionalWeatherInfo from '../components/AdditionalWeatherInfo';
+import useLocation from './hooks/useLocation';
 
 function App() {
   const weather = useWeather();
+  const location = useLocation({lat: -9.6622452, lon: -35.7561595});
 
   if (weather.error) return <Text>Alguma coisa deu errado...</Text>;
   return (
@@ -22,8 +25,8 @@ function App() {
         <Wrapper>
           <Spacer value={20} />
           <WeatherResume
-            cityName="Maceió"
-            currentWeather={weather.current.weather[0].description}
+            cityName={location.city !== '' ? location.city : '---'}
+            currentWeather={weather.current.weather[0].description.toTitleCase()}
             temperatureValue={Math.floor(weather.current.temp)}
           />
           <CurrentDayResume />
