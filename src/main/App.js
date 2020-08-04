@@ -1,47 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import '../configs/stringExtension';
 import ThemeProvider from './ThemeProvider';
-import BackgroundImage from '../components/BackgroundImage';
-import {Wrapper, Main, HourlyForecastsContainer} from './styles';
-import WeatherResume from '../components/WeatherResume';
-import HourlyForecast from '../components/HourlyForecast';
-import Spacer from '../components/shared/Spacer';
-import DailyForecasts from '../components/DailyForecasts';
-import useWeather from './hooks/useWeather';
-import {Text} from 'react-native';
-import CurrentDayResume from '../components/CurrentDayResume';
-import AdditionalWeatherInfo from '../components/AdditionalWeatherInfo';
-import useLocation from './hooks/useLocation';
+import usePermissions from './hooks/usePermissions';
+import WeatherApp from '../screens';
+import NoPermissionsWarn from '../screens/NoPermissionsWarn';
 
 function App() {
-  const weather = useWeather();
-  const location = useLocation({lat: -9.6622452, lon: -35.7561595});
+  const [togglePermissionPrompt, setTogglePermissionPrompt] = useState(false);
+  const locationPermissionsGranted = usePermissions(togglePermissionPrompt);
 
-  if (weather.error) return <Text>Alguma coisa deu errado...</Text>;
+  if (!locationPermissionsGranted)
+    return (
+      <ThemeProvider>
+        <NoPermissionsWarn
+          onPress={() => setTogglePermissionPrompt(!togglePermissionPrompt)}
+        />
+      </ThemeProvider>
+    );
+
   return (
     <ThemeProvider>
-      <BackgroundImage />
-      {!weather.isLoading ? (
-        <Wrapper>
-          <Spacer value={20} />
-          <WeatherResume
-            cityName={location.city !== '' ? location.city : '---'}
-            currentWeather={weather.current.weather[0].description.toTitleCase()}
-            temperatureValue={Math.floor(weather.current.temp)}
-          />
-          <CurrentDayResume />
-          <Spacer value={10} />
-          <HourlyForecastsContainer>
-            <HourlyForecast forecasts={weather.hourly} />
-          </HourlyForecastsContainer>
-          <Main>
-            <DailyForecasts forecasts={weather.daily} />
-            <AdditionalWeatherInfo weatherInfo={weather.current} />
-          </Main>
-        </Wrapper>
-      ) : (
-        <Text>Carregando...</Text>
-      )}
+      <WeatherApp />
     </ThemeProvider>
   );
 }
