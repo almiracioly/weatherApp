@@ -1,5 +1,5 @@
 import React from 'react';
-import api from '../../http/api';
+import weatherService from '../../services/weatherService';
 
 function useWeather() {
   const [current, setCurrent] = React.useState({});
@@ -11,7 +11,7 @@ function useWeather() {
   React.useEffect(() => {
     async function getWeatherInfo() {
       try {
-        const response = await api.getWeatherInfo({
+        const response = await weatherService.getWeatherInfo({
           lat: -9.6622452, // TODO: get real current GEO
           lon: -35.7561595,
         });
